@@ -113,7 +113,7 @@ local function worker(user_args)
         if show_current_level == true then
             --- if battery is fully charged (100) there is not enough place for three digits, so we don't show any text
             text.text = charge == 100
-                    and ''
+                    and '󱈑'
                     or string.format('%d', charge)
         else
             text.text = ''
