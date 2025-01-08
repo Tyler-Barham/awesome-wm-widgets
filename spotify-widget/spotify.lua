@@ -83,7 +83,7 @@ local function worker(user_args)
         },
         layout = wibox.layout.align.horizontal,
         set_status = function(self, is_playing)
-            self:get_children_by_id('icon')[1]:set_markup(is_playing and '  ' or '  ')
+            self:get_children_by_id('icon')[1]:set_markup(is_playing and '  ' or '  ')
             if dim_when_paused then
                 self:get_children_by_id('icon')[1]:set_opacity(is_playing and 1 or dim_opacity)
 
