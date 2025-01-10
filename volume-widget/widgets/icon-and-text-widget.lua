@@ -11,6 +11,9 @@ function widget.get_widget(widgets_args)
     local font = args.font or beautiful.font
     local icon_dir = args.icon_dir or ICON_DIR
 
+    local last_value = ""
+    local mute_text = "  "
+
     return wibox.widget {
         {
             {
@@ -29,9 +32,11 @@ function widget.get_widget(widgets_args)
         layout = wibox.layout.fixed.horizontal,
         set_volume_level = function(self, new_value)
             self:get_children_by_id('txt')[1]:set_text(new_value)
+            last_value = new_value
             local volume_icon_name
             if self.is_muted then
                 volume_icon_name = 'audio-volume-muted-symbolic'
+                self:get_children_by_id('txt')[1]:set_text(mute_text)
             else
                 local new_value_num = tonumber(new_value)
                 if (new_value_num >= 0 and new_value_num < 33) then
@@ -47,9 +52,11 @@ function widget.get_widget(widgets_args)
         mute = function(self)
             self.is_muted = true
             self:get_children_by_id('icon')[1]:set_image(icon_dir .. 'audio-volume-muted-symbolic.svg')
+            self:get_children_by_id('txt')[1]:set_text(mute_text)
         end,
         unmute = function(self)
             self.is_muted = false
+            self:get_children_by_id('txt')[1]:set_text(last_value)
         end
     }
 
